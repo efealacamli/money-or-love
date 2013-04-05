@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="20" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="spritesheet1" tilewidth="16" tileheight="16">
+  <image source="../moneyorlove_sprites/spritesheet1.png" width="32" height="64"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="25" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NkYGBgpAOmJRi1g/p2sBOBB7sdlJhPjB3EmE+pP0ixA5dd1EpX9LAD2R5a2gGzh9Z2YAPE2IFPnhj3jTQ7KKl76BnntMYAekhSkdAHAAA=
+  </data>
+ </layer>
+</map>

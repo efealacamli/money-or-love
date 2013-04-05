@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<script src="crafty.js" type="text/javascript"></script>
+	<script src="game.js" type="text/javascript" ></script>
+	<script src="scenes/loading.js" type="text/javascript" ></script>
+	<script src="scenes/gameover.js" type="text/javascript" ></script>	
+	<script src="jquery.js" type="text/javascript" ></script>
+	<script src='components/player_controls.js'></script>
+	<script src='components/slide.js'></script>
+	<title>MoneyOrLove</title>
+	<script>
+	
+		$(document).ready(function() {
+			startGame();
+			currentLevelIndex = 0;
+		});
+
+		function startGame() {
+			Crafty.scene("main",function() {
+				
+				Crafty.background("black");
+				var goldIsTaken = false;
+				var heartIsTaken = false;
+				var canFinishTheGame = false;	//goldisTaken && heartIsTaken gives 1 or 0
+			
+				
+				loadMap(level[currentLevelIndex], function(levelData){
+				//loadMap("levels/map7.tsv", function(levelData){
+				//alert("zdzzsdszdsdafeqfal");
+				
+					Crafty.bind('KeyDown', function(e) {
+						if(e.key == Crafty.keys['R']) {
+						  Crafty.scene("loading");
+						}
+					  });	
+					
+				 
+					player_man.onHit("wall1",function(obj) {
+					  this.cancelSlide();
+					});
+
+					player_man.onHit("woman",function(obj) {
+					  this.cancelSlide();
+					});		
+					player_man.onHit("gold",function(obj) {				
+					  gold.attr({x: player_man.x + 4, y:player_man.y - 7, w:8, h:8});
+					  player_man.attach(gold);
+					  if(!goldIsTaken){
+						Crafty.audio.play("coin");
+					  }
+					  goldIsTaken = 1;
+					});	
+					player_man.onHit("lava",function(obj) {	
+						Crafty.audio.play("hurt");
+						Crafty.scene("gameover");
+					});
+					player_man.onHit("finishTile",function(obj) {
+						canFinishTheGame = goldIsTaken && heartIsTaken;
+						//document.write(canFinishTheGame);
+						if(canFinishTheGame == 1){
+							currentLevelIndex++;
+							Crafty.audio.play("finish");
+							Crafty.scene("loading");
+						}
+					});						
+					
+					player_woman.onHit("wall1",function(obj) {
+					  this.cancelSlide();
+					});
+					player_woman.onHit("man",function(obj) {
+					  this.cancelSlide();
+					});						
+					player_woman.onHit("heart",function(obj) {
+					  heart.attr({x: player_woman.x + 4, y:player_woman.y - 7, w:8, h:8});					
+					  player_woman.attach(heart);
+					  if(!heartIsTaken){
+						Crafty.audio.play("heart");
+					  }
+					  heartIsTaken = 1;
+					});	
+					
+					player_woman.onHit("lava",function(obj) {
+						Crafty.audio.play("hurt");
+						Crafty.scene("gameover");
+					});
+					player_woman.onHit("finishTile",function(obj) {
+						canFinishTheGame = goldIsTaken && heartIsTaken;
+						//document.write(canFinishTheGame);
+						if(canFinishTheGame == 1){
+							currentLevelIndex++;
+							Crafty.audio.play("finish");
+							Crafty.scene("loading");
+						}
+					});						
+					
+				});
+			});
+						
+		}
+		
+	</script>
+	
+	
+</head>
+<body style="background-color:black;"> 
+<img align= left src="moneyorlove_howtoplay.png"/>
+</body>
+</html>
