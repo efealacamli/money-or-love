@@ -25,9 +25,4 @@ VERSION INFO:
 	09/12/2012
 	Used for the Software Engineering presentation
 	Uploaded on stdhomes.ieu.edu.tr
-	
 	Level soundfx changed and all the sound levels are increased
-	
-		
- en son değişikliklerin yapıldığı versiyon
-Level end sesi değiştirildi
